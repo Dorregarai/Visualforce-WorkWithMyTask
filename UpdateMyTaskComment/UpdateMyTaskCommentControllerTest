@@ -1,0 +1,24 @@
+@IsTest
+public class UpdateMyTaskCommentControllerTest {
+	@isTest
+    public static void test() {
+        MyTask__c myTaskToTest = new MyTask__c(
+            Name = 'test1',
+            OwnerId = '0052w000008Lm32AAC'
+        );
+        insert myTaskToTest;
+        
+        Test.startTest();
+
+        ApexPages.StandardController controller = new ApexPages.StandardController(myTaskToTest);
+        UpdateMyTaskCommentController mt = new UpdateMyTaskCommentController(controller);
+        
+        mt.save();
+        
+        Test.stopTest();
+        
+        MyTask__c actualMyTask = [ SELECT Name, Comment__c FROM MyTask__c WHERE Name = 'test1' ];
+
+        System.assertEquals('Updated from Button', actualMyTask.Comment__c);
+    }
+}
