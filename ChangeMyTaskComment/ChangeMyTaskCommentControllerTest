@@ -1,0 +1,27 @@
+@IsTest
+public class ChangeMyTaskCommentControllerTest {
+	@isTest
+    public static void test() {
+        MyTask__c myTaskToTest = new MyTask__c(
+            Name = 'Test',
+            OwnerId = '0052w000008Lm32AAC'
+        );
+        insert myTaskToTest;
+        
+        Test.startTest();
+
+        ApexPages.StandardController controller = new ApexPages.StandardController(myTaskToTest);
+        ChangeMyTaskCommentController mt = new ChangeMyTaskCommentController(controller);
+
+        System.assertEquals('Updated from trigger', mt.myTask.Comment__c);
+
+        mt.changeValue = 'newtestvalue';
+        mt.save();
+
+        MyTask__c actualMyTask = [ SELECT Name, Comment__c FROM MyTask__c WHERE Name = 'Test' ];
+
+        System.assertEquals('newtestvalue', actualMyTask.Comment__c);
+
+        Test.stopTest();
+    }
+}
