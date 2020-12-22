@@ -1,0 +1,20 @@
+@IsTest
+public class MyTaskTriggerTest {
+	@isTest
+    public static void test() {
+        MyTask__c myTaskToTest = new MyTask__c( Name = 'test1', OwnerId = '0052w000008Lm32AAC' );
+        User oldUser = [ SELECT Count_of_MyTasks__c FROM User WHERE Id = :myTaskToTest.OwnerId ];
+        
+        Test.startTest();
+        	insert myTaskToTest;
+        Test.stopTest();
+        
+        String expectedComment = 'Updated from trigger';
+        MyTask__c actualRes = [ SELECT Comment__c, OwnerId FROM MyTask__c WHERE Name = 'test1' ];
+        User actualUser = [ SELECT Count_of_MyTasks__c FROM User WHERE Id = :actualRes.OwnerId ];
+        Integer expectedCount = (Integer)oldUser.Count_of_MyTasks__c + 1;
+        
+        System.assertEquals(expectedComment, actualRes.Comment__c);
+        System.assertEquals(expectedCount, actualUser.Count_of_MyTasks__c);
+    }
+}
