@@ -1,0 +1,22 @@
+public class ChangeMyTaskCommentController {
+    public MyTask__c myTask {get; set;}
+    public String changeValue {get; set;}
+    
+	public ChangeMyTaskCommentController(ApexPages.StandardController controller) {
+        this.myTask = [ SELECT Name, Comment__c FROM MyTask__c WHERE Name = 'Test' ];
+        this.changeValue = myTask.Comment__c;
+    }
+    
+    public PageReference save() {
+        try {
+            MyTask__c myTaskToUpdate = [ SELECT Id, Comment__c FROM MyTask__c WHERE Id = :mytask.Id ];
+            
+            myTaskToUpdate.Comment__c = this.changeValue;
+            
+            update myTaskToUpdate;
+        } catch(Exception e) {
+            System.debug(e.getMessage());
+        }
+        return null;
+    }
+}
