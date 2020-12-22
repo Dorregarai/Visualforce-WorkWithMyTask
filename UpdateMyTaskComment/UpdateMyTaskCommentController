@@ -1,0 +1,20 @@
+public class UpdateMyTaskCommentController {
+    public MyTask__c myTask {get; set;}
+    
+    public UpdateMyTaskCommentController(ApexPages.StandardController controller) {
+        this.myTask = (MyTask__c)controller.getRecord();
+    }
+    
+    public PageReference save() {
+        try {
+            MyTask__c myTaskToUpdate = [ SELECT Id FROM MyTask__c WHERE Id = :mytask.Id ];
+            
+            myTaskToUpdate.Comment__c = 'Updated from Button';
+            
+            update myTaskToUpdate;
+        } catch(Exception e) {
+            System.debug(e.getMessage());
+        }
+        return null;
+    }
+}
