@@ -1,4 +1,4 @@
-<apex:page standardController="MyTask__c" extensions="ChangeMyTaskCommentController">
+<apex:page standardController="MyTask__c" extensions="ChangeMyTaskCommentController" lightningStylesheets="true">
     
     <apex:form >
     	<apex:inputText value="{!changeValue}" />
