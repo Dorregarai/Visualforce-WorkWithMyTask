@@ -1,4 +1,4 @@
-<apex:page standardController="MyTask__c" extensions="UpdateMyTaskCommentController">
+<apex:page standardController="MyTask__c" extensions="UpdateMyTaskCommentController" lightningStylesheets="true">
     
     <apex:form >
     	<apex:commandButton value="Update MyTask Comment" action="{!save}"/>
